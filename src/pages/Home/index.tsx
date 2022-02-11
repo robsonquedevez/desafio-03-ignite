@@ -35,7 +35,12 @@ const Home = (): JSX.Element => {
     async function loadProducts() {
       const response = await api.get('products');
 
-      setProducts(response.data);
+      const data = response.data.map((product: Product) => ({
+        ...product,
+        priceFormatted: formatPrice(product.price)
+      }))
+
+      setProducts(data);
     }
 
     loadProducts();
